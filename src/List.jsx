@@ -1,12 +1,26 @@
 import { useState } from "react";
 
-const List = () => {
+const List = ({ id, setList, Lists }) => {
   const [valueTodo, setValueTodo] = useState("");
+  const [TacheTitre, setTacheTitre] = useState("");
   const [todos, setTodos] = useState([]);
-  const data1 = { id: Math.floor(Math.random() * 1000), title: valueTodo };
+
+  const data1 = {
+    id: todos.length + 1,
+    title: valueTodo,
+    tache: TacheTitre
+  };
 
   const HandleChangeValue = (e) => {
     setValueTodo(e.target.value);
+  };
+
+  const ChangeTitreTache = (e) => {
+    setTacheTitre(e.target.value);
+  };
+
+  const Deletelist = () => {
+    setList(Lists.filter((list) => list.id !== id));
   };
 
   const AddTodo = () => {
@@ -14,10 +28,23 @@ const List = () => {
     setValueTodo("");
   };
   return (
-    <div style={{ border: "1px solid red", margin: "10px" }}>
-      <h2>Tache</h2>
-      <input type="text" value={valueTodo} onChange={HandleChangeValue} />
+    <div style={{ padding: "10px" }}>
+      <input
+        type="text"
+        value={data1.tache}
+        placeholder="Titre"
+        onChange={ChangeTitreTache}
+      />
+      <input
+        type="text"
+        value={valueTodo}
+        placeholder="Create new To-do"
+        onChange={HandleChangeValue}
+      />
+
       <button onClick={AddTodo}>Add New To-do</button>
+      <button onClick={Deletelist}>Delete List</button>
+      <h2>{data1.tache}</h2>
       {todos.map((todo) => (
         <div key={todo.id}>
           <Todo

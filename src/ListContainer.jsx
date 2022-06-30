@@ -23,7 +23,7 @@ const ListContainer = () => {
       {Lists.map((list) => (
         <div style={{ border: "1px dotted black" }} key={list.id}>
           <h2>{list.title}</h2>
-          <List />
+          <List id={list.id} setList={setList} Lists={Lists} />
         </div>
       ))}
     </div>
